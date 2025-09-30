@@ -1,16 +1,16 @@
 // Fetch message from Express backend to test connection
-async function fetchBackendMessage() {
-  try {
-    const res = await fetch("http://localhost:3000/api/hello"); // Make GET request to backend
-    const data = await res.json(); // Parse JSON response
-    console.log(data.message); // Log message from backend
-  } catch (error) {
-    console.error("Error fetching message from backend:", error);
-  }
-}
+//async function fetchBackendMessage() {
+//try {
+//const res = await fetch("http://localhost:3000"); // Make GET request to backend
+//const data = await res.json(); // Parse JSON response
+//console.log(data.message); // Log message from backend
+//} catch (error) {
+//console.error("Error fetching message from backend:", error);
+//}
+//}
 
 // Call the function on page load
-fetchBackendMessage();
+//fetchBackendMessage();
 
 // UI INTERACTION - ADDING NEW BUCKET ITEM
 
