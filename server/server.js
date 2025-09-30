@@ -1,7 +1,8 @@
-// server/app.js
+
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import pg from "pg";
 
 dotenv.config();
 const app = express();
@@ -9,9 +10,18 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Example route
-app.get("/api/hello", (req, res) => {
-  res.json({ message: "Hello from Express backend!" });
+const db = new pg.Pool({
+  connectionString: process.env.DB_CONN,
+});
+
+app.get("/api/items", async (req, res) => {
+  try {
+    const { rows } = await db.query("SELECT * FROM items ORDER BY id ASC");
+    res.json(rows);
+  } catch (err) {
+    console.error("❌ Error fetching items:", err);
+    res.status(500).json({ error: "Failed to fetch items" });
+  }
 });
 
 const PORT = process.env.PORT || 3000;
