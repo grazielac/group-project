@@ -5,56 +5,97 @@ scattering hardcoded colors throughout the stylesheets.
 */
 
 :root {
-  --obsidian: #2a2a2a; /* Dark, almost black */
-  --seashell: #f9f5ed; /* Light, soft beige */
-  --denim: #5e83ae; /* Blue */
+  --obsidian: #2a2a2a;
+  --seashell: #f0deba;
+  --denim: #5e83ae;
 }
 
-/* GLOBAL RESET & BASE */
+/* RESET  */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Times New Roman;
-  color: var(--obsidian);
-  background-color: var(--seashell);
 }
 
-/* HEADER - top bar */
+html,
+body {
+  height: 100%;
+  font-family: sans-serif;
+  background-color: rgb(253, 239, 239);
+}
+
+/* PAGE STRUCTURE */
+.page-border {
+  position: relative;
+  z-index: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Main content wrapper */
+.content-wrapper {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* HEADER  */
 .top-header {
   display: flex;
-  justify-content: center; /* center BUCKET LIST */
+  justify-content: center;
   align-items: center;
-  position: relative; /* for positioning login button */
+  position: relative;
   background-color: var(--seashell);
-  color: white;
-  padding: 1rem 2rem;
+  padding: 1.5rem 2rem;
   font-weight: bold;
-  font-size: 1.5rem;
+  font-size: 1.8rem;
+  width: 100%;
+  border-top: 6px solid var(--denim);
+  border-bottom: 6px solid var(--denim);
+  border-radius: 10%;
+
+  width: 100%;
+  box-shadow: 0 12px 15px rgba(58, 30, 219, 0.699),
+    0 -8px 10px rgba(58, 30, 219, 0.699);
 }
 
-/* Login button on the right side */
 .login-btn {
   position: absolute;
   right: 2rem;
-  background-color: var(--seashell);
+  background-color: rgb(240, 239, 186);
   color: var(--denim);
-  border: none;
-  padding: 0.4rem 1rem;
-  border-radius: 4px;
-  cursor: pointer;
   font-weight: bold;
+  padding: 0.3rem 0.8rem;
+  border: 2px solid var(--denim);
+  border-radius: 20px;
+  transition: 0.3s ease;
 }
 
-/* Main title under header */
-.main-title {
-  text-align: center;
-  margin: 1rem 0;
-  font-size: 2rem;
+.login-btn:hover {
+  background-color: var(--seashell);
   color: var(--obsidian);
+  border-color: var(--obsidian);
 }
 
-/* Menu bar with buttons */
+/*  TITLES  */
+h1.logo,
+.main-title h2,
+.add-item-form h2 {
+  color: var(--obsidian);
+  text-align: center;
+  font-size: 2rem;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.main-title {
+  margin: 1rem 0;
+}
+
+/* MENU BAR  */
 .menu-bar {
   display: flex;
   justify-content: center;
@@ -62,84 +103,72 @@ scattering hardcoded colors throughout the stylesheets.
   margin-bottom: 1rem;
 }
 
-.menu-bar button {
-  background-color: var(--denim);
-  color: var(--seashell);
-  border: none;
-  padding: 0.5rem 1.5rem;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.menu-bar button:hover {
-  background-color: var(--obsidian);
-}
-
-/* Filter section */
+/*  FILTER */
 .filter {
   text-align: center;
   margin-bottom: 1rem;
   font-weight: bold;
-  color: var(--obsidian);
 }
 
-.filter-btn {
-  background-color: var(--seashell);
-  border: 2px solid var(--denim);
-  color: var(--denim);
-  padding: 0.3rem 0.8rem;
-  margin: 0 0.3rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: background-color 0.3s ease, color 0.3s ease;
-}
-
-.filter-btn.active,
-.filter-btn:hover {
+.filter-btn.active {
   background-color: var(--denim);
   color: var(--seashell);
 }
 
-/* List of bucket items */
+/*  BUTTONS */
+button {
+  border: 2px solid var(--denim);
+  background-color: var(--seashell);
+  color: var(--denim);
+  font-weight: bold;
+  padding: 0.4rem 1rem;
+  margin: 0.3rem;
+  border-radius: 12px 4px;
+  cursor: pointer;
+  transition: 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: var(--denim);
+  color: var(--seashell);
+  transform: scale(1.04);
+}
+
+/*  BUCKET LIST SECTION  */
 .list {
   max-width: 600px;
-  margin: 0 auto 2rem auto;
+  width: 90%;
+  margin: 1rem auto;
   background-color: var(--denim);
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  min-height: 200px;
+  min-height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--seashell);
 }
 
-/* Add item form - initially hidden */
+/*  ADD ITEM FORM  */
 .add-item-form {
-  max-width: 600px;
-  margin: 0 auto 2rem auto;
+  max-width: 900px;
+  width: 90%;
+  margin: 1rem auto 2rem auto;
   background-color: var(--seashell);
   border-radius: 10px;
-  padding: 1rem;
+  padding: 1.5rem 2rem;
+  display: none;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  display: none; /* hidden by default */
 }
 
-/* Show form when active */
 .add-item-form.active {
   display: block;
-}
-
-.add-item-form h2 {
-  text-align: center;
-  color: var(--obsidian);
-  margin-bottom: 1rem;
 }
 
 .add-item-form form {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.2rem;
 }
 
 .add-item-form label {
@@ -148,42 +177,70 @@ scattering hardcoded colors throughout the stylesheets.
   display: flex;
   justify-content: space-between;
   align-items: center;
+  gap: 1rem;
 }
 
 .add-item-form input,
 .add-item-form select {
   flex-grow: 1;
-  padding: 0.4rem;
+  min-width: 250px;
+  padding: 0.5rem;
   border: 2px solid var(--denim);
   border-radius: 5px;
 }
 
-/* Add item submit button */
 .add-item-form button[type="submit"] {
+  padding: 0.8rem 0;
+  border-radius: 12px 4px;
   background-color: var(--denim);
   color: var(--seashell);
-  border: none;
-  padding: 0.6rem 0;
   font-weight: bold;
-  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
 }
 
 .add-item-form button[type="submit"]:hover {
   background-color: var(--obsidian);
 }
 
-/* Footer and progress */
-footer {
+/*  PROGRESS BAR  */
+.progress-section {
   max-width: 600px;
   margin: 0 auto 2rem auto;
   text-align: center;
-  color: var(--seashell);
+  color: var(--obsidian);
   font-weight: bold;
 }
 
-/* Responsive: mobile */
+/*  FOOTER  box-shadow: 0 -8px 10px rgba(58, 30, 219, 0.699); */
+footer {
+  background-color: var(--seashell);
+  color: var(--obsidian);
+  padding: 2rem 2rem;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: bold;
+  border-top: 6px solid var(--denim);
+  border-bottom: 6px solid var(--denim);
+  border-radius: 10%;
+  margin-top: auto;
+  width: 100%;
+  box-shadow: 0 12px 15px rgba(58, 30, 219, 0.699),
+    0 -8px 10px rgba(58, 30, 219, 0.699);
+}
+
+/* BACKGROUND IMAGE  */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  background: url("https://media1.giphy.com/media/v1.Y2lkPTc5MGI3NjExenIzejhrcWd0YjNobzF1NG80YXd2OHV5cjJzbmR1YmU0NXUwcHd2biZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3d63YDxRJRtkZepvGm/giphy.gif");
+  background-size: cover;
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/*  RESPONSIVE  */
 @media (max-width: 600px) {
   .menu-bar {
     flex-direction: column;
@@ -200,9 +257,8 @@ footer {
     padding: 0.3rem 0.8rem;
   }
 
-  .add-item-form,
-  .list {
-    max-width: 90%;
-    margin: 1rem auto;
+  .add-item-form input,
+  .add-item-form select {
+    min-width: 100px;
   }
 }

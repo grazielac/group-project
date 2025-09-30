@@ -1,17 +1,3 @@
-// Fetch message from Express backend to test connection
-//async function fetchBackendMessage() {
-//try {
-//const res = await fetch("http://localhost:3000"); // Make GET request to backend
-//const data = await res.json(); // Parse JSON response
-//console.log(data.message); // Log message from backend
-//} catch (error) {
-//console.error("Error fetching message from backend:", error);
-//}
-//}
-
-// Call the function on page load
-//fetchBackendMessage();
-
 // UI INTERACTION - ADDING NEW BUCKET ITEM
 
 // Select the "Add Item" button from the nav bar
@@ -22,25 +8,31 @@ const addItemFormSection = document.querySelector(".add-item-form");
 
 // Toggle form visibility when "Add Item" button is clicked
 addItemBtn.addEventListener("click", () => {
-  addItemFormSection.classList.toggle("active"); // adds/removes 'active' class for display control
+  // Toggle 'active' class to show/hide the form
+  addItemFormSection.classList.toggle("active");
+
+  // Scroll into view when form becomes visible (optional usability improvement)
+  if (addItemFormSection.classList.contains("active")) {
+    addItemFormSection.scrollIntoView({ behavior: "smooth" });
+  }
 });
 
-// Select the actual <form> element
+// Select the <form> element itself
 const addItemForm = document.getElementById("addItemForm");
 
 // Handle form submission
 addItemForm.addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent page reload on form submit
+  event.preventDefault(); // Prevent page reload
 
-  // Safely select and extract input values using querySelector
+  // Get input values
   const title = addItemForm.querySelector('input[name="title"]').value.trim();
   const category = addItemForm.querySelector('select[name="category"]').value;
   const link = addItemForm.querySelector('input[name="link"]').value.trim();
 
-  // Log the input values (can be replaced  with sending data to the backend later)
+  // Log values (you can later replace this with a function that saves data)
   console.log({ title, category, link });
 
-  // Clear the form inputs
+  // Clear form fields
   addItemForm.reset();
 
   // Hide the form again
