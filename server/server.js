@@ -13,7 +13,8 @@ const db = new pg.Pool({
   connectionString: process.env.DB_CONN,
 });
 
-app.get("/api/items", async (req, res) => {
+// GET all items
+app.get("/items", async (req, res) => {
   try {
     const { rows } = await db.query("SELECT * FROM items ORDER BY id ASC");
     res.json(rows);
@@ -24,7 +25,7 @@ app.get("/api/items", async (req, res) => {
 });
 
 // POST a new item
-app.post("/api/items", async (req, res) => {
+app.post("/items", async (req, res) => {
   try {
     const { title, category, link, status } = req.body;
 
@@ -41,7 +42,7 @@ app.post("/api/items", async (req, res) => {
 });
 
 // PUT (update) an item by ID
-app.put("/api/items/id", async (req, res) => {
+app.put("/items/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { title, category, link, status } = req.body;
@@ -59,7 +60,7 @@ app.put("/api/items/id", async (req, res) => {
 });
 
 // DELETE an item by ID
-app.delete("/api/items/id", async (req, res) => {
+app.delete("/items/:id", async (req, res) => {
   try {
     const { id } = req.params;
 
