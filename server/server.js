@@ -13,6 +13,10 @@ const db = new pg.Pool({
   connectionString: process.env.DB_CONN,
 });
 
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Server is live" });
+});
+
 // GET all items
 app.get("/items", async (req, res) => {
   try {
