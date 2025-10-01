@@ -13,6 +13,7 @@ const db = new pg.Pool({
   connectionString: process.env.DB_CONN,
 });
 
+// Root route
 app.get("/", (req, res) => {
   res.status(200).json({ message: "Server is live" });
 });
@@ -23,7 +24,7 @@ app.get("/items", async (req, res) => {
     const { rows } = await db.query("SELECT * FROM items ORDER BY id ASC");
     res.json(rows);
   } catch (err) {
-    console.error("❌ Error fetching items:", err);
+    console.error("❌ Error fetching items:", err.stack);
     res.status(500).json({ error: "Failed to fetch items" });
   }
 });
@@ -32,6 +33,7 @@ app.get("/items", async (req, res) => {
 app.post("/items", async (req, res) => {
   try {
     const { title, category, link, status } = req.body;
+    console.log("Received:", req.body);
 
     await db.query(
       "INSERT INTO items (title, category, link, status) VALUES ($1, $2, $3, $4)",
@@ -40,12 +42,12 @@ app.post("/items", async (req, res) => {
 
     res.status(201).json({ message: "Item added successfully" });
   } catch (err) {
-    console.error("❌ Error adding item:", err);
+    console.error("❌ Error adding item:", err.stack);
     res.status(500).json({ error: "Failed to add item" });
   }
 });
 
-// PUT (update) an item by ID
+// PUT update item
 app.put("/items/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -58,12 +60,12 @@ app.put("/items/:id", async (req, res) => {
 
     res.json({ message: "Item updated successfully" });
   } catch (err) {
-    console.error("❌ Error updating item:", err);
+    console.error("❌ Error updating item:", err.stack);
     res.status(500).json({ error: "Failed to update item" });
   }
 });
 
-// DELETE an item by ID
+// DELETE item
 app.delete("/items/:id", async (req, res) => {
   try {
     const { id } = req.params;
@@ -72,7 +74,7 @@ app.delete("/items/:id", async (req, res) => {
 
     res.json({ message: "Item deleted successfully" });
   } catch (err) {
-    console.error("❌ Error deleting item:", err);
+    console.error("❌ Error deleting item:", err.stack);
     res.status(500).json({ error: "Failed to delete item" });
   }
 });
