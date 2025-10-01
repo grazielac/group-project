@@ -27,7 +27,7 @@ scattering hardcoded colors throughout the stylesheets.
   align-items: center;
   position: relative; /* for positioning login button */
   background-color: var(--seashell);
-  color: white;
+  color: var(--obsidian);
   padding: 1rem 2rem;
   font-weight: bold;
   font-size: 1.5rem;
@@ -103,15 +103,17 @@ scattering hardcoded colors throughout the stylesheets.
   color: var(--seashell);
 }
 
-/* List of bucket items */
+/* List of bucket items container */
 .list {
-  max-width: 600px;
+  max-width: 1200px;
   margin: 0 auto 2rem auto;
-  background-color: var(--denim);
+  background-color: var(--seashell);
   border-radius: 10px;
   padding: 1rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
 }
 
 /* Add item form - initially hidden */
@@ -179,7 +181,7 @@ footer {
   max-width: 600px;
   margin: 0 auto 2rem auto;
   text-align: center;
-  color: var(--seashell);
+  color: var(--obsidian);
   font-weight: bold;
 }
 
@@ -204,5 +206,79 @@ footer {
   .list {
     max-width: 90%;
     margin: 1rem auto;
+  }
+}
+
+/* TODAY */
+/* Fiecare item din listă va arăta ca o linie orizontală (rând) */
+
+.bucket-item {
+  background-color: #ffffff; /* alb, pentru contrast */
+  border: 2px solid var(--denim);
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  margin: 0.3rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+  min-width: 320px;
+}
+
+.bucket-item:hover {
+  transform: scale(1.02);
+}
+
+/* Left side with text details */
+.bucket-item-details {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-size: 1rem;
+  color: var(--obsidian);
+}
+
+/* Styling text labels in the item */
+.bucket-item-details span,
+.bucket-item-details a {
+  white-space: nowrap;
+}
+
+/* Link style */
+.bucket-item-details a {
+  color: var(--denim);
+  text-decoration: underline;
+}
+
+/* Right side: icons container */
+.bucket-item-actions {
+  display: flex;
+  gap: 0.8rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+/* Icons hover effect */
+.bucket-item-actions span:hover {
+  color: var(--denim);
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .bucket-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .bucket-item-details {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.3rem;
+  }
+  .bucket-item-actions {
+    margin-top: 0.6rem;
+    justify-content: flex-start;
   }
 }

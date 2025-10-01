@@ -18,20 +18,30 @@ async function fetchAndRenderItems() {
       return;
     }
 
+    // TO DO REWORK ON DONE BTN// AZIIII /// TO DO// MUSAI // DE REPARART //
+
     // Create and append item elements
     items.forEach(({ id, title, category, link, status }) => {
       const itemEl = document.createElement("div");
       itemEl.classList.add("bucket-item");
+      if (status === "done") itemEl.classList.add("done"); // if is marked as done
+
+      // CHANGED TODAY 01.10.25 //
       itemEl.innerHTML = `
-        <h3>${title}</h3>
-        <p>Category: ${category}</p>
-        ${
-          link
-            ? `<p><a href="${link}" target="_blank" rel="noopener noreferrer">Link</a></p>`
-            : ""
-        }
-        <p>Status: ${status}</p>
-      `;
+    <h3>${title}</h3>
+    <p>Category: ${category}</p>
+    ${
+      link
+        ? `<p><a href="${link}" target="_blank" rel="noopener noreferrer">Link</a></p>`
+        : ""
+    }
+    <p>Status: ${status}</p>
+    <div class="item-buttons">
+      <button class="mark-done-btn" data-id="${id}">✅ Done</button>
+      <button class="delete-btn" data-id="${id}">🗑️ Delete</button>
+    </div>
+  `;
+
       listSection.appendChild(itemEl);
     });
   } catch (error) {
@@ -83,6 +93,49 @@ addItemForm.addEventListener("submit", async (event) => {
 
 // Initial load
 fetchAndRenderItems();
+
+//CHANGED TODAY 01.10.25 //
+// Event delegation for clicks on btns from items list
+listSection.addEventListener("click", async (e) => {
+  const id = e.target.dataset.id;
+  if (!id) return; // if doesn't exist data-id, ignore the click
+  // 🗑️ DELETE
+  if (e.target.classList.contains("delete-btn")) {
+    const confirmDelete = confirm("Ești sigur că vrei să ștergi acest item?");
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`http://localhost:3000/items/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Delete failed");
+      await fetchAndRenderItems(); // update list after delete
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      alert("Nu s-a putut șterge. Încearcă din nou.");
+    }
+  }
+
+  // ✅ MARK AS DONE
+  if (e.target.classList.contains("mark-done-btn")) {
+    try {
+      const res = await fetch(`http://localhost:3000/items/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: "done" }),
+      });
+
+      if (!res.ok) throw new Error("Update failed");
+      await fetchAndRenderItems(); // update list
+    } catch (error) {
+      console.error("Error marking as done:", error);
+      alert("Cooldn't load as 'done'.");
+    }
+  }
+});
 
 // Toggle 'Add Item' form visibility
 document

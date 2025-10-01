@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bucket List App</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
@@ -39,7 +39,98 @@
 
         <!-- List of bucket items -->
         <section class="list">
-          <!-- Bucket list items will go here -->
+          <article class="bucket-item">
+            <div class="bucket-item-details">
+              <span class="title">Bake cake</span>
+              <span class="category">Categ: Food</span>
+              <a href="#" class="link">Link</a>
+              <span class="status">Status: done</span>
+            </div>
+            <div class="bucket-item-actions">
+              <span class="done-icon" title="Mark as done">✅</span>
+              <span class="delete-icon" title="Delete">🗑️</span>
+            </div>
+          </article>
+
+          <article class="bucket-item">
+            <div class="bucket-item-details">
+              <span class="title">Visit Viena</span>
+              <span class="category">Categ: Travel</span>
+              <a href="#" class="link">Link</a>
+              <span class="status">Status: pending</span>
+            </div>
+            <div class="bucket-item-actions">
+              <span class="done-icon" title="Mark as done">✅</span>
+              <span class="delete-icon" title="Delete">🗑️</span>
+            </div>
+          </article>
+
+          <article class="bucket-item">
+            <div class="bucket-item-details">
+              <span class="title">Test Item</span>
+              <span class="category">Categ: Books</span>
+              <a href="#" class="link">Link</a>
+              <span class="status">Status: pending</span>
+            </div>
+            <div class="bucket-item-actions">
+              <span class="done-icon" title="Mark as done">✅</span>
+              <span class="delete-icon" title="Delete">🗑️</span>
+            </div>
+          </article>
+
+          <article class="bucket-item">
+            <div class="bucket-item-details">
+              <span class="title">Visit Korea</span>
+              <span class="category">Categ: Travel</span>
+              <a href="#" class="link">Link</a>
+              <span class="status">Status: pending</span>
+            </div>
+            <div class="bucket-item-actions">
+              <span class="done-icon" title="Mark as done">✅</span>
+              <span class="delete-icon" title="Delete">🗑️</span>
+            </div>
+          </article>
+
+          <article class="bucket-item">
+            <div class="bucket-item-details">
+              <span class="title">Visit Hawaii</span>
+              <span class="category">Categ: Travel</span>
+              <a href="#" class="link">Link</a>
+              <span class="status">Status: pending</span>
+            </div>
+            <div class="bucket-item-actions">
+              <span class="done-icon" title="Mark as done">✅</span>
+              <span class="delete-icon" title="Delete">🗑️</span>
+            </div>
+          </article>
+
+          <article class="bucket-item">
+            <div class="bucket-item-details">
+              <span class="title">Test 3</span>
+              <span class="category">Categ: Fun</span>
+              <a href="#" class="link">Link</a>
+              <span class="status">Status: pending</span>
+            </div>
+            <div class="bucket-item-actions">
+              <span class="done-icon" title="Mark as done">✅</span>
+              <span class="delete-icon" title="Delete">🗑️</span>
+            </div>
+          </article>
+
+          <article class="bucket-item">
+            <div class="bucket-item-details">
+              <span class="title"
+                >Wed, 01 Oct, 12.18 pm.. this test should still work. andr</span
+              >
+              <span class="category">Categ: Fun</span>
+              <a href="#" class="link">Link</a>
+              <span class="status">Status: pending</span>
+            </div>
+            <div class="bucket-item-actions">
+              <span class="done-icon" title="Mark as done">✅</span>
+              <span class="delete-icon" title="Delete">🗑️</span>
+            </div>
+          </article>
         </section>
 
         <!-- Add new item form (hidden by default) -->
@@ -52,6 +143,8 @@
               <select name="category" required>
                 <option value="Travel">Travel</option>
                 <option value="Fun">Fun</option>
+                <option value="Food">Food</option>
+                <option value="Books">Books</option>
               </select>
             </label>
             <label>Link (optional): <input type="url" name="link" /></label>
