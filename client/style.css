@@ -1,0 +1,208 @@
+/* COLORS: I used CSS variables in :root for consistent color scheme and easier maintenance:
+I defined primary colors as CSS custom properties to ensure uniform styling across the app.
+This approach will allow quick global color updates by changing values in one place instead of
+scattering hardcoded colors throughout the stylesheets.
+*/
+
+:root {
+  --obsidian: #2a2a2a; /* Dark, almost black */
+  --seashell: #f9f5ed; /* Light, soft beige */
+  --denim: #5e83ae; /* Blue */
+}
+
+/* GLOBAL RESET & BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Times New Roman;
+  color: var(--obsidian);
+  background-color: var(--seashell);
+}
+
+/* HEADER - top bar */
+.top-header {
+  display: flex;
+  justify-content: center; /* center BUCKET LIST */
+  align-items: center;
+  position: relative; /* for positioning login button */
+  background-color: var(--seashell);
+  color: white;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+
+/* Login button on the right side */
+.login-btn {
+  position: absolute;
+  right: 2rem;
+  background-color: var(--seashell);
+  color: var(--denim);
+  border: none;
+  padding: 0.4rem 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Main title under header */
+.main-title {
+  text-align: center;
+  margin: 1rem 0;
+  font-size: 2rem;
+  color: var(--obsidian);
+}
+
+/* Menu bar with buttons */
+.menu-bar {
+  display: flex;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.menu-bar button {
+  background-color: var(--denim);
+  color: var(--seashell);
+  border: none;
+  padding: 0.5rem 1.5rem;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.menu-bar button:hover {
+  background-color: var(--obsidian);
+}
+
+/* Filter section */
+.filter {
+  text-align: center;
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: var(--obsidian);
+}
+
+.filter-btn {
+  background-color: var(--seashell);
+  border: 2px solid var(--denim);
+  color: var(--denim);
+  padding: 0.3rem 0.8rem;
+  margin: 0 0.3rem;
+  border-radius: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.filter-btn.active,
+.filter-btn:hover {
+  background-color: var(--denim);
+  color: var(--seashell);
+}
+
+/* List of bucket items */
+.list {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  background-color: var(--denim);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  min-height: 200px;
+}
+
+/* Add item form - initially hidden */
+.add-item-form {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  background-color: var(--seashell);
+  border-radius: 10px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: none; /* hidden by default */
+}
+
+/* Show form when active */
+.add-item-form.active {
+  display: block;
+}
+
+.add-item-form h2 {
+  text-align: center;
+  color: var(--obsidian);
+  margin-bottom: 1rem;
+}
+
+.add-item-form form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.add-item-form label {
+  font-weight: bold;
+  color: var(--denim);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.add-item-form input,
+.add-item-form select {
+  flex-grow: 1;
+  padding: 0.4rem;
+  border: 2px solid var(--denim);
+  border-radius: 5px;
+}
+
+/* Add item submit button */
+.add-item-form button[type="submit"] {
+  background-color: var(--denim);
+  color: var(--seashell);
+  border: none;
+  padding: 0.6rem 0;
+  font-weight: bold;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.add-item-form button[type="submit"]:hover {
+  background-color: var(--obsidian);
+}
+
+/* Footer and progress */
+footer {
+  max-width: 600px;
+  margin: 0 auto 2rem auto;
+  text-align: center;
+  color: var(--seashell);
+  font-weight: bold;
+}
+
+/* Responsive: mobile */
+@media (max-width: 600px) {
+  .menu-bar {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .top-header {
+    font-size: 1.2rem;
+    padding: 1rem;
+  }
+
+  .login-btn {
+    right: 1rem;
+    padding: 0.3rem 0.8rem;
+  }
+
+  .add-item-form,
+  .list {
+    max-width: 90%;
+    margin: 1rem auto;
+  }
+}
