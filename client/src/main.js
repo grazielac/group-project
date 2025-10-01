@@ -11,7 +11,7 @@ addItemBtn.addEventListener("click", () => {
   // Toggle 'active' class to show/hide the form
   addItemFormSection.classList.toggle("active");
 
-  // Scroll into view when form becomes visible (optional usability improvement)
+  // Scroll into view when form becomes visible
   if (addItemFormSection.classList.contains("active")) {
     addItemFormSection.scrollIntoView({ behavior: "smooth" });
   }
@@ -38,3 +38,17 @@ addItemForm.addEventListener("submit", (event) => {
   // Hide the form again
   addItemFormSection.classList.remove("active");
 });
+
+// BACKEND FETCH EXAMPLE
+async function fetchBackendMessage() {
+  try {
+    const res = await fetch("http://localhost:3000");
+    const data = await res.json();
+    console.log(data.message); // should log: Hello from Express backend!
+  } catch (error) {
+    console.error("Error fetching from backend:", error);
+  }
+}
+
+// Call the function to fetch backend message
+fetchBackendMessage();
