@@ -168,6 +168,18 @@ listSection.addEventListener("click", async (e) => {
   }
 });
 
+//DONE BTN
+//document.querySelector(".list").addEventListener("click", (e) => {
+//if (e.target.classList.contains("done-icon")) {
+// const article = e.target.closest(".bucket-item");
+// const statusEl = article.querySelector(".status");
+
+///  if (statusEl && !statusEl.textContent.includes("done")) {
+//  statusEl.textContent = "Status: done";
+// }
+// }
+//});
+
 // Toggle 'Add Item' form visibility
 document
   .querySelector(".menu-bar button:nth-child(2)")

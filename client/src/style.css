@@ -13,11 +13,19 @@
 }
 
 body {
-  min-height: 100vh; /* full viewport height */
+  height: 100vh; /* full viewport height */
   display: flex;
   flex-direction: column;
   background-color: var(--seashell);
   position: relative;
+}
+
+/* Interiorul paginii */
+.page-border .inner {
+  z-index: 1;
+  position: relative;
+  min-height: 100vh;
+  padding-top: 70px;
 }
 
 .page-border .inner::before {
@@ -28,7 +36,7 @@ body {
   right: 20px;
   bottom: 20px;
 
-  background-image: url("https://images.unsplash.com/photo-1594383169997-250ec3fdd48d?q=80&w=1074&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+  background-image: url("https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?q=80&w=1172&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -38,21 +46,15 @@ body {
   pointer-events: none;
 }
 
-/* Interiorul paginii */
-.page-border .inner {
-  z-index: 1;
-  position: relative;
-}
-
 /* Glowing gradient border (pseudo-elemente) */
 .page-border::before,
 .page-border::after {
   content: "";
   position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
+  top: 10px;
+  left: 10px;
+  bottom: 10px;
+  right: 10px;
   background: linear-gradient(
     45deg,
     #ff595e,
@@ -62,7 +64,7 @@ body {
     #6a4c93,
     #ff6700
   );
-  background-size: 400%;
+  background-size: 600%;
   z-index: -1;
   animation: glow 20s linear infinite;
   width: 100%;
@@ -97,27 +99,33 @@ body {
 /* HEADER */
 .top-header {
   display: flex;
-  justify-content: center; /* center BUCKET LIST */
+  justify-content: space-between;
   align-items: center;
   position: relative; /* for positioning login button */
-  background-color: var(--denim);
 
+  background-color: rgba(0, 0, 50, 0.596); /* albastru transparent */
   padding: 1rem 2rem;
   font-weight: bold;
   font-size: 1.5rem;
   box-shadow: 0 2px 8px rgb(14, 8, 8);
+
+  max-width: 900px; /* nu pe toată lățimea */
+  margin: 1rem auto; /* centrat și cu spațiu sus-jos */
+  border: 2px solid transparent;
+  border-color: var(--denim);
+  border-image-slice: 1;
+
+  border-radius: 0px; /* colțuri rotunjite */
 }
 
 .login-btn {
-  position: absolute;
-  right: 1rem;
   background-color: var(--seashell);
   color: var(--denim);
   border: none;
   padding: 0.4rem 1rem;
   border: 2px solid var(--obsidian);
   border-radius: 18px;
-  margin: 2.5rem 0;
+  margin: 0;
   cursor: pointer;
   font-weight: bold;
 }
@@ -190,6 +198,8 @@ body {
   border-radius: 10px;
   padding: 1rem;
   min-height: 150px;
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.9),
+    /* bright highlight top-left */ 5px 5px 12px rgb(245, 240, 240); /* deep shadow bottom-right */
 
   display: flex;
   flex-direction: column;
@@ -207,7 +217,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+
   transition: transform 0.2s ease;
   width: 100%;
   box-sizing: border-box;
@@ -328,17 +338,21 @@ body {
 /* FOOTER */
 footer {
   text-align: center;
-  background-color: var(--denim);
-  color: var(--denim);
+  background-color: rgba(0, 0, 50, 0.596);
+
   font-weight: bold;
-  width: 100%;
-  padding: 2.5rem 1rem;
+  max-width: 900px;
+  margin: 1rem auto;
+  padding: 2rem 4rem;
   flex-shrink: 0; /* Stick footer to bottom */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 8px rgb(14, 8, 8);
   letter-spacing: 2px;
+  border: 2px solid var(--denim);
 
+  border: 2px solid var(--denim);
+  border-radius: 0; /* fără colțuri rotunjite */
   color: var(--seashell);
-
+  padding: 1rem 2rem;
   text-shadow: 3px 3px rgba(83, 20, 88, 0.993);
 }
 
@@ -353,6 +367,10 @@ footer p.copyright {
   .menu-bar {
     flex-direction: column;
     gap: 0.5rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    width: 100%;
   }
 
   .top-header {
