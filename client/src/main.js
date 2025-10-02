@@ -2,6 +2,7 @@
 const listSection = document.querySelector(".list");
 const addItemForm = document.getElementById("addItemForm");
 const addItemFormSection = document.querySelector(".add-item-form");
+const API_URL = "https://group-project-g0cg.onrender.com/items";
 
 // fct to update progress
 function updateProgressBar() {
@@ -28,7 +29,7 @@ function updateProgressBar() {
 //  Fetch and render items
 async function fetchAndRenderItems() {
   try {
-    const res = await fetch("http://localhost:8080/items");
+    const res = await fetch(API_URL);
     if (!res.ok) throw new Error("Failed to fetch items");
     const items = await res.json();
 
@@ -87,7 +88,7 @@ addItemForm.addEventListener("submit", async (event) => {
   }
 
   try {
-    const res = await fetch("http://localhost:8080/items", {
+    const res = await fetch(API_URL, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -127,7 +128,7 @@ listSection.addEventListener("click", async (e) => {
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:8080/items/${id}`, {
+      const res = await fetch(`${API_URL}/${id}`, {
         method: "DELETE",
       });
 
@@ -143,7 +144,7 @@ listSection.addEventListener("click", async (e) => {
   if (e.target.classList.contains("done-icon")) {
     try {
       // 1. Preluăm obiectul complet
-      const getRes = await fetch(`http://localhost:8080/items/${id}`);
+      const getRes = await fetch(`${API_URL}/${id}`);
       if (!getRes.ok) throw new Error("Failed to fetch item");
       const item = await getRes.json();
 
@@ -151,7 +152,7 @@ listSection.addEventListener("click", async (e) => {
       const updatedItem = { ...item, status: "done" };
 
       // 3. Trimitem update complet cu PUT
-      const putRes = await fetch(`http://localhost:8080/items/${id}`, {
+      const putRes = await fetch(`${API_URL}/${id}`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -190,7 +191,7 @@ document
 // Test backend connection
 async function fetchBackendMessage() {
   try {
-    const res = await fetch("http://localhost:8080");
+    const res = await fetch("https://group-project-g0cg.onrender.com");
     const data = await res.json();
     console.log(data.message);
   } catch (error) {
