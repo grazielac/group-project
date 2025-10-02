@@ -1,8 +1,3 @@
-/* COLORS: I used CSS variables in :root for consistent color scheme and easier maintenance:
-I defined primary colors as CSS custom properties to ensure uniform styling across the app.
-This approach will allow quick global color updates by changing values in one place instead of
-scattering hardcoded colors throughout the stylesheets.
-*/
 :root {
   --obsidian: #2a2a2a; /* Dark, almost black */
   --seashell: #e7d8b9; /* Light, soft beige */
@@ -212,7 +207,6 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
 }
-
 /* BUCKET ITEM */
 .bucket-item {
   background-color: var(--seashell); /* alb, pentru contrast */

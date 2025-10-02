@@ -52,7 +52,7 @@ app.put("/items/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { title, category, link, status } = req.body;
-
+    console.log(title, id, category, link, status);
     await db.query(
       "UPDATE items SET title = $1, category = $2, link = $3, status = $4 WHERE id = $5",
       [title, category, link, status, id]

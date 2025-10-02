@@ -57,7 +57,7 @@ async function fetchAndRenderItems() {
         }
         <p>Status: ${status}</p>
         <div class="item-buttons">
-          <button class="done-icon data-id="${id}">✅ Done</button>
+          <button class="done-icon" data-id="${id}">✅ Done</button>
           <button class="delete-btn" data-id="${id}">🗑️ Delete</button>
         </div>
       `;
