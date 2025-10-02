@@ -3,7 +3,29 @@ const listSection = document.querySelector(".list");
 const addItemForm = document.getElementById("addItemForm");
 const addItemFormSection = document.querySelector(".add-item-form");
 
-// Fetch and render items
+// fct to update progress
+function updateProgressBar() {
+  const items = document.querySelectorAll(".bucket-item");
+  const total = items.length;
+  if (total === 0) return;
+
+  const done = [...items].filter((item) => {
+    const statusText = item.textContent.toLowerCase();
+    return statusText.includes("status: done");
+  }).length;
+
+  const progressValue = Math.round((done / total) * 100);
+
+  const progressBar = document.getElementById("progressBar");
+  const progressText = document.getElementById("progressText");
+
+  if (progressBar && progressText) {
+    progressBar.value = progressValue;
+    progressText.textContent = `${progressValue}% completed`;
+  }
+}
+
+//  Fetch and render items
 async function fetchAndRenderItems() {
   try {
     const res = await fetch("http://localhost:3000/items");
@@ -15,6 +37,7 @@ async function fetchAndRenderItems() {
 
     if (items.length === 0) {
       listSection.innerHTML = "<p>No items found.</p>";
+      updateProgressBar(); // even when is no item
       return;
     }
 
@@ -22,6 +45,8 @@ async function fetchAndRenderItems() {
     items.forEach(({ id, title, category, link, status }) => {
       const itemEl = document.createElement("div");
       itemEl.classList.add("bucket-item");
+      if (status === "done") itemEl.classList.add("done");
+
       itemEl.innerHTML = `
         <h3>${title}</h3>
         <p>Category: ${category}</p>
@@ -31,16 +56,24 @@ async function fetchAndRenderItems() {
             : ""
         }
         <p>Status: ${status}</p>
+        <div class="item-buttons">
+          <button class="mark-done-btn" data-id="${id}">✅ Done</button>
+          <button class="delete-btn" data-id="${id}">🗑️ Delete</button>
+        </div>
       `;
+
       listSection.appendChild(itemEl);
     });
+
+    // update the progress after render
+    updateProgressBar();
   } catch (error) {
     console.error("Error fetching items:", error);
     listSection.innerHTML = "<p>Error loading items. Try again later.</p>";
   }
 }
 
-// Handle form submission
+//  Handle form submission
 addItemForm.addEventListener("submit", async (event) => {
   event.preventDefault();
 
@@ -74,15 +107,57 @@ addItemForm.addEventListener("submit", async (event) => {
 
     addItemForm.reset();
     addItemFormSection.classList.remove("active");
-    await fetchAndRenderItems();
+    await fetchAndRenderItems(); // progress updates auto
   } catch (error) {
     console.error("Error adding item:", error);
     alert("Failed to add item. Please try again.");
   }
 });
 
-// Initial load
 fetchAndRenderItems();
+
+// Events on list (mark as done, delete)
+listSection.addEventListener("click", async (e) => {
+  const id = e.target.dataset.id;
+  if (!id) return;
+
+  // 🗑️ DELETE
+  if (e.target.classList.contains("delete-btn")) {
+    const confirmDelete = confirm("Ești sigur că vrei să ștergi acest item?");
+    if (!confirmDelete) return;
+
+    try {
+      const res = await fetch(`http://localhost:3000/items/${id}`, {
+        method: "DELETE",
+      });
+
+      if (!res.ok) throw new Error("Delete failed");
+      await fetchAndRenderItems(); // progress
+    } catch (error) {
+      console.error("Error deleting item:", error);
+      alert("Nu s-a putut șterge. Încearcă din nou.");
+    }
+  }
+
+  // ✅ MARK AS DONE
+  if (e.target.classList.contains("mark-done-btn")) {
+    try {
+      const res = await fetch(`http://localhost:3000/items/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ status: "done" }),
+      });
+
+      if (!res.ok) throw new Error("Update failed");
+      await fetchAndRenderItems(); // progress
+    } catch (error) {
+      console.error("Error marking as done:", error);
+      alert("Couldn't update status to 'done'.");
+    }
+  }
+});
 
 // Toggle 'Add Item' form visibility
 document
@@ -91,7 +166,7 @@ document
     addItemFormSection.classList.toggle("active");
   });
 
-// Optional: Test backend connection
+// Test backend connection
 async function fetchBackendMessage() {
   try {
     const res = await fetch("http://localhost:3000");

@@ -2,76 +2,170 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bucket List App</title>
     <link rel="stylesheet" href="/src/style.css" />
   </head>
+
   <body>
     <!-- Animated border wrapper -->
     <div class="page-border">
-      <!-- App content inside layout container -->
-      <div class="content-wrapper">
-        <!-- Top Header: logo and login button -->
-        <header class="top-header">
-          <h1 class="logo">BUCKET LIST</h1>
-          <button class="login-btn">Login</button>
-        </header>
+      <div class="inner">
+        <!-- App content inside layout container -->
+        <div class="content-wrapper">
+          <!-- Top Header: logo and login button -->
+          <header class="top-header">
+            <h1 class="logo"><span class="highlight">BUCKET LIST</span></h1>
+            <button class="login-btn">Login</button>
+          </header>
 
-        <!-- Section title below header -->
-        <section class="main-title">
-          <h2>MY BUCKET LIST</h2>
-        </section>
+          <!-- Navigation menu -->
+          <nav class="menu-bar">
+            <button>Home</button>
+            <button>Add Item</button>
+            <button>My List</button>
+          </nav>
 
-        <!-- Navigation menu -->
-        <nav class="menu-bar">
-          <button>Home</button>
-          <button>Add Item</button>
-          <button>My List</button>
-        </nav>
+          <!-- Category filter -->
+          <section class="filter">
+            <span>Filter by Category:</span>
+            <button class="filter-btn active" data-category="all">All</button>
+            <button class="filter-btn" data-category="Travel">Travel</button>
+            <button class="filter-btn" data-category="Fun">Fun</button>
+          </section>
 
-        <!-- Category filter -->
-        <section class="filter">
-          <span>Filter by Category:</span>
-          <button class="filter-btn active" data-category="all">All</button>
-          <button class="filter-btn" data-category="Travel">Travel</button>
-          <button class="filter-btn" data-category="Fun">Fun</button>
-        </section>
+          <!-- Add new item form (hidden by default) -->
+          <section class="add-item-form">
+            <h2>Add New Item</h2>
+            <form id="addItemForm">
+              <label>Title: <input type="text" name="title" required /></label>
+              <label>
+                Category:
+                <select name="category" required>
+                  <option value="Travel">Travel</option>
+                  <option value="Fun">Fun</option>
+                  <option value="Food">Food</option>
+                  <option value="Books">Books</option>
+                </select>
+              </label>
+              <label>Link (optional): <input type="url" name="link" /></label>
+              <button type="submit">Add Item</button>
+            </form>
+          </section>
 
-        <!-- List of bucket items -->
-        <section class="list">
-          <!-- Bucket list items will go here -->
-        </section>
+          <!-- List of bucket items -->
+          <section class="list">
+            <article class="bucket-item">
+              <div class="bucket-item-details">
+                <span class="title">Bake cake</span>
+                <span class="category">Categ: Food</span>
+                <a href="#" class="link">Link</a>
+                <span class="status">Status: done</span>
+              </div>
+              <div class="bucket-item-actions">
+                <span class="done-icon" title="Mark as done">✅</span>
+                <span class="delete-icon" title="Delete">🗑️</span>
+              </div>
+            </article>
 
-        <!-- Add new item form (hidden by default) -->
-        <section class="add-item-form">
-          <h2>Add New Item</h2>
-          <form id="addItemForm">
-            <label>Title: <input type="text" name="title" required /></label>
-            <label>
-              Category:
-              <select name="category" required>
-                <option value="Travel">Travel</option>
-                <option value="Fun">Fun</option>
-              </select>
-            </label>
-            <label>Link (optional): <input type="url" name="link" /></label>
-            <button type="submit">Add Item</button>
-          </form>
-        </section>
+            <article class="bucket-item">
+              <div class="bucket-item-details">
+                <span class="title">Visit Viena</span>
+                <span class="category">Categ: Travel</span>
+                <a href="#" class="link">Link</a>
+                <span class="status">Status: pending</span>
+              </div>
+              <div class="bucket-item-actions">
+                <span class="done-icon" title="Mark as done">✅</span>
+                <span class="delete-icon" title="Delete">🗑️</span>
+              </div>
+            </article>
 
-        <!-- Progress bar section -->
-        <section class="progress-section">
-          📊 Progress: <progress value="0" max="100"></progress> 0% completed
-        </section>
+            <article class="bucket-item">
+              <div class="bucket-item-details">
+                <span class="title">Test Item</span>
+                <span class="category">Categ: Books</span>
+                <a href="#" class="link">Link</a>
+                <span class="status">Status: pending</span>
+              </div>
+              <div class="bucket-item-actions">
+                <span class="done-icon" title="Mark as done">✅</span>
+                <span class="delete-icon" title="Delete">🗑️</span>
+              </div>
+            </article>
 
-        <footer>
-          <p class="copyright">
-            Built by Group 🍀 Small but Mighty &copy; 2025
-          </p>
-        </footer>
+            <article class="bucket-item">
+              <div class="bucket-item-details">
+                <span class="title">Visit Korea</span>
+                <span class="category">Categ: Travel</span>
+                <a href="#" class="link">Link</a>
+                <span class="status">Status: pending</span>
+              </div>
+              <div class="bucket-item-actions">
+                <span class="done-icon" title="Mark as done">✅</span>
+                <span class="delete-icon" title="Delete">🗑️</span>
+              </div>
+            </article>
+
+            <article class="bucket-item">
+              <div class="bucket-item-details">
+                <span class="title">Visit Hawaii</span>
+                <span class="category">Categ: Travel</span>
+                <a href="#" class="link">Link</a>
+                <span class="status">Status: pending</span>
+              </div>
+              <div class="bucket-item-actions">
+                <span class="done-icon" title="Mark as done">✅</span>
+                <span class="delete-icon" title="Delete">🗑️</span>
+              </div>
+            </article>
+
+            <article class="bucket-item">
+              <div class="bucket-item-details">
+                <span class="title">Test 3</span>
+                <span class="category">Categ: Fun</span>
+                <a href="#" class="link">Link</a>
+                <span class="status">Status: pending</span>
+              </div>
+              <div class="bucket-item-actions">
+                <span class="done-icon" title="Mark as done">✅</span>
+                <span class="delete-icon" title="Delete">🗑️</span>
+              </div>
+            </article>
+
+            <article class="bucket-item">
+              <div class="bucket-item-details">
+                <span class="title"
+                  >Wed, 01 Oct, 12.18 pm.. this test should still work.
+                  andr</span
+                >
+                <span class="category">Categ: Fun</span>
+                <a href="#" class="link">Link</a>
+                <span class="status">Status: pending</span>
+              </div>
+              <div class="bucket-item-actions">
+                <span class="done-icon" title="Mark as done">✅</span>
+                <span class="delete-icon" title="Delete">🗑️</span>
+              </div>
+            </article>
+          </section>
+
+          <!-- Progress bar section -->
+          <section class="progress-section">
+            📊 Progress:
+            <progress id="progressBar" value="0" max="100"></progress>
+            <span id="progressText"> 0% completed</span>
+          </section>
+
+          <footer>
+            <p class="copyright">
+              Built by Group 🍀 Small but Mighty &copy; 2025
+            </p>
+          </footer>
+        </div>
+
+        <script type="module" src="/src/main.js"></script>
       </div>
-
-      <script type="module" src="/src/main.js"></script>
     </div>
   </body>
 </html>
