@@ -52,7 +52,7 @@ app.put("/items/:id", async (req, res) => {
   try {
     const { id } = req.params;
     const { title, category, link, status } = req.body;
-
+    console.log(title, id, category, link, status);
     await db.query(
       "UPDATE items SET title = $1, category = $2, link = $3, status = $4 WHERE id = $5",
       [title, category, link, status, id]
@@ -79,7 +79,22 @@ app.delete("/items/:id", async (req, res) => {
   }
 });
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () =>
   console.log(`🚀 Server running on http://localhost:${PORT}`)
 );
+
+// GET single item by id
+app.get("/items/:id", async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { rows } = await db.query("SELECT * FROM items WHERE id = $1", [id]);
+    if (rows.length === 0) {
+      return res.status(404).json({ error: "Item not found" });
+    }
+    res.json(rows[0]);
+  } catch (err) {
+    console.error("❌ Error fetching item:", err.stack);
+    res.status(500).json({ error: "Failed to fetch item" });
+  }
+});

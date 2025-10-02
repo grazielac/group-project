@@ -28,7 +28,7 @@ function updateProgressBar() {
 //  Fetch and render items
 async function fetchAndRenderItems() {
   try {
-    const res = await fetch("http://localhost:3000/items");
+    const res = await fetch("http://localhost:8080/items");
     if (!res.ok) throw new Error("Failed to fetch items");
     const items = await res.json();
 
@@ -57,7 +57,7 @@ async function fetchAndRenderItems() {
         }
         <p>Status: ${status}</p>
         <div class="item-buttons">
-          <button class="mark-done-btn" data-id="${id}">✅ Done</button>
+          <button class="done-icon" data-id="${id}">✅ Done</button>
           <button class="delete-btn" data-id="${id}">🗑️ Delete</button>
         </div>
       `;
@@ -87,7 +87,7 @@ addItemForm.addEventListener("submit", async (event) => {
   }
 
   try {
-    const res = await fetch("http://localhost:3000/items", {
+    const res = await fetch("http://localhost:8080/items", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -123,11 +123,11 @@ listSection.addEventListener("click", async (e) => {
 
   // 🗑️ DELETE
   if (e.target.classList.contains("delete-btn")) {
-    const confirmDelete = confirm("Ești sigur că vrei să ștergi acest item?");
+    const confirmDelete = confirm("Are you sure you want to delete this item?");
     if (!confirmDelete) return;
 
     try {
-      const res = await fetch(`http://localhost:3000/items/${id}`, {
+      const res = await fetch(`http://localhost:8080/items/${id}`, {
         method: "DELETE",
       });
 
@@ -135,22 +135,31 @@ listSection.addEventListener("click", async (e) => {
       await fetchAndRenderItems(); // progress
     } catch (error) {
       console.error("Error deleting item:", error);
-      alert("Nu s-a putut șterge. Încearcă din nou.");
+      alert("Could not be deleted. Please try again.");
     }
   }
 
   // ✅ MARK AS DONE
-  if (e.target.classList.contains("mark-done-btn")) {
+  if (e.target.classList.contains("done-icon")) {
     try {
-      const res = await fetch(`http://localhost:3000/items/${id}`, {
-        method: "PATCH",
+      // 1. Preluăm obiectul complet
+      const getRes = await fetch(`http://localhost:8080/items/${id}`);
+      if (!getRes.ok) throw new Error("Failed to fetch item");
+      const item = await getRes.json();
+
+      // 2. Modificăm statusul
+      const updatedItem = { ...item, status: "done" };
+
+      // 3. Trimitem update complet cu PUT
+      const putRes = await fetch(`http://localhost:8080/items/${id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ status: "done" }),
+        body: JSON.stringify(updatedItem),
       });
 
-      if (!res.ok) throw new Error("Update failed");
+      if (!putRes.ok) throw new Error("Update failed");
       await fetchAndRenderItems(); // progress
     } catch (error) {
       console.error("Error marking as done:", error);
@@ -169,7 +178,7 @@ document
 // Test backend connection
 async function fetchBackendMessage() {
   try {
-    const res = await fetch("http://localhost:3000");
+    const res = await fetch("http://localhost:8080");
     const data = await res.json();
     console.log(data.message);
   } catch (error) {
