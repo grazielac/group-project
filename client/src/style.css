@@ -207,6 +207,15 @@ body {
   align-items: flex-start;
   justify-content: flex-start;
 }
+.list:empty::before {
+  color: var(--denim);
+  font-weight: bold;
+  text-align: center;
+  width: 100%;
+  padding: 1rem 0;
+  opacity: 0.7;
+}
+
 /* BUCKET ITEM */
 .bucket-item {
   background-color: var(--seashell); /* alb, pentru contrast */
