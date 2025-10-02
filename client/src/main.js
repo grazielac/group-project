@@ -123,7 +123,7 @@ listSection.addEventListener("click", async (e) => {
 
   // 🗑️ DELETE
   if (e.target.classList.contains("delete-btn")) {
-    const confirmDelete = confirm("Ești sigur că vrei să ștergi acest item?");
+    const confirmDelete = confirm("Are you sure you want to delete this item?");
     if (!confirmDelete) return;
 
     try {
@@ -135,22 +135,31 @@ listSection.addEventListener("click", async (e) => {
       await fetchAndRenderItems(); // progress
     } catch (error) {
       console.error("Error deleting item:", error);
-      alert("Nu s-a putut șterge. Încearcă din nou.");
+      alert("Could not be deleted. Please try again.");
     }
   }
 
   // ✅ MARK AS DONE
-  if (e.target.classList.contains("mark-done-btn")) {
+  if (e.target.classList.contains("done-icon")) {
     try {
-      const res = await fetch(`http://localhost:3000/items/${id}`, {
-        method: "PATCH",
+      // 1. Preluăm obiectul complet
+      const getRes = await fetch(`http://localhost:3000/items/${id}`);
+      if (!getRes.ok) throw new Error("Failed to fetch item");
+      const item = await getRes.json();
+
+      // 2. Modificăm statusul
+      const updatedItem = { ...item, status: "done" };
+
+      // 3. Trimitem update complet cu PUT
+      const putRes = await fetch(`http://localhost:3000/items/${id}`, {
+        method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ status: "done" }),
+        body: JSON.stringify(updatedItem),
       });
 
-      if (!res.ok) throw new Error("Update failed");
+      if (!putRes.ok) throw new Error("Update failed");
       await fetchAndRenderItems(); // progress
     } catch (error) {
       console.error("Error marking as done:", error);
@@ -158,6 +167,18 @@ listSection.addEventListener("click", async (e) => {
     }
   }
 });
+
+//DONE BTN
+//document.querySelector(".list").addEventListener("click", (e) => {
+//if (e.target.classList.contains("done-icon")) {
+// const article = e.target.closest(".bucket-item");
+// const statusEl = article.querySelector(".status");
+
+///  if (statusEl && !statusEl.textContent.includes("done")) {
+//  statusEl.textContent = "Status: done";
+// }
+// }
+//});
 
 // Toggle 'Add Item' form visibility
 document
